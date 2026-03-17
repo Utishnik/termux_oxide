@@ -6,6 +6,7 @@ use dialog::TermuxDialog;
 use notification::TermuxNotification;
 use toast::TermuxToast;
 
+pub mod call;
 pub mod battery_status;
 pub mod brightness;
 pub mod camera;
@@ -14,6 +15,8 @@ pub mod dialog;
 pub mod errors;
 pub mod notification;
 pub mod toast;
+pub mod run;
+pub mod audio;
 
 pub struct Termux {
     pub battery: TermuxBatteryStatus,
