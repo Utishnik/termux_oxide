@@ -1,5 +1,5 @@
-use std::process::Command;
 use std::io;
+use std::process::Command;
 
 pub fn run_api_cmd(cmd: &str) -> io::Result<String> {
     let output = Command::new("/data/data/com.termux/files/usr/libexec/termux-api")
