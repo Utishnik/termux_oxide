@@ -128,7 +128,7 @@ pub fn de_list_json(cfg_path: String) -> Result<ContactList, ()> {
 }
 
 impl ContactList {
-    pub async fn async_run(&self) -> Result<ContactList, TermuxError> {
+    pub async fn async_run() -> Result<Self, TermuxError> {
         let mut command = smol_cmd::new("termux-contact-list");
         let output: Result<std::process::Output, std::io::Error> = command.output().await;
         match output {
@@ -147,10 +147,7 @@ impl ContactList {
             Err(e) => Err(TermuxError::IOError(e)),
         }
     }
-    pub async fn async_run_timeout(
-        &self,
-        delay: core::time::Duration,
-    ) -> Result<ContactList, TermuxError> {
+    pub async fn async_run_timeout(delay: core::time::Duration) -> Result<Self, TermuxError> {
         let command: super::run::TimeOutRes<Result<String, std::io::Error>> =
             async_run_api_cmd_timeout("termux-contact-list", delay).await;
         return match command {
@@ -166,7 +163,7 @@ impl ContactList {
 }
 
 #[test]
-fn test() {
+fn test_ser() {
     let mut test_list: ContactList = ContactList::new_with_size(10);
     test_list.add(Contact {
         name: "zxc".to_string(),
@@ -185,4 +182,12 @@ fn test() {
         number: "1".to_string(),
     });
     ser_list_json(test_list, "test.json".to_string());
+}
+
+#[test]
+fn test() {
+    smol::block_on(async {
+        let test_list: ContactList = ContactList::async_run().await.unwrap();
+        println!("{:?}", test_list);
+    });
 }
