@@ -4,6 +4,12 @@ use super::errors::TermuxError;
 
 pub struct TermuxClipboardGet {}
 
+impl Default for TermuxClipboardGet {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxClipboardGet {
     pub fn new() -> Self {
         TermuxClipboardGet {}
@@ -29,6 +35,12 @@ impl TermuxClipboardGet {
 
 pub struct TermuxClipboardSet {
     content: Option<String>,
+}
+
+impl Default for TermuxClipboardSet {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl TermuxClipboardSet {
@@ -62,6 +74,12 @@ impl TermuxClipboardSet {
 pub struct TermuxClipboard {
     pub get: TermuxClipboardGet,
     pub set: TermuxClipboardSet,
+}
+
+impl Default for TermuxClipboard {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl TermuxClipboard {

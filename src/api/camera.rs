@@ -30,6 +30,11 @@ pub struct CameraInfo {
 pub type CamerasInfo = Vec<CameraInfo>;
 
 pub struct TermuxCameraInfo {}
+impl Default for TermuxCameraInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl TermuxCameraInfo {
     pub fn new() -> Self {
@@ -55,6 +60,12 @@ impl TermuxCameraInfo {
 pub struct TermuxCameraPhoto {
     id: Option<u8>,
     save_path: Option<String>,
+}
+
+impl Default for TermuxCameraPhoto {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl TermuxCameraPhoto {

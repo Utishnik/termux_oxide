@@ -1,5 +1,8 @@
+use crate::api::run::async_run_api_cmd_timeout;
+
 use super::errors::TermuxError;
 use super::run::async_run_api_cmd;
+use crate::api::run::TimeOutRes;
 use serde::{Deserialize, Serialize};
 use simd_json::{json, prelude::*, serde as simd_serde};
 use smol::process::Command as smol_cmd;
@@ -17,6 +20,12 @@ pub struct Contact {
 #[serde(transparent)]
 pub struct ContactList {
     inner: Vec<Contact>,
+}
+
+impl Default for ContactList {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl ContactList {
@@ -142,12 +151,17 @@ impl ContactList {
         &self,
         delay: core::time::Duration,
     ) -> Result<ContactList, TermuxError> {
-        let mut command: Result<String, std::io::Error> =
-            async_run_api_cmd("termux-contact-list").await;
-        match command {
-            Ok(output) => {}
-            Err(e) => Err(TermuxError::IOError(e)),
-        }
+        let command: super::run::TimeOutRes<Result<String, std::io::Error>> =
+            async_run_api_cmd_timeout("termux-contact-list", delay).await;
+        return match command {
+            TimeOutRes::Ok(Ok(mut output)) => unsafe {
+                let s: &mut str = std::str::from_utf8_mut(output.as_bytes_mut()).unwrap();
+                let list: ContactList = simd_json::serde::from_str::<ContactList>(s).unwrap();
+                Ok(list)
+            },
+            TimeOutRes::Ok(Err(e)) => Err(TermuxError::IOError(e)),
+            TimeOutRes::TimeOut => Err(TermuxError::TimeOut),
+        };
     }
 }
 

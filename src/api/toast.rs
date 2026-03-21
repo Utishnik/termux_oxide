@@ -16,6 +16,12 @@ pub struct TermuxToast {
     pub short_duration: bool,
 }
 
+impl Default for TermuxToast {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxToast {
     pub fn text(mut self, text: &str) -> Self {
         self.text = Some(text.to_string());

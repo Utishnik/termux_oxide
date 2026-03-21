@@ -31,6 +31,12 @@ pub struct TermuxNotification {
     pub alert_once: bool,
 }
 
+impl Default for TermuxNotification {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxNotification {
     pub fn title(mut self, title: &str) -> Self {
         self.title = Some(title.to_string());

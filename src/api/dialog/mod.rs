@@ -6,6 +6,12 @@ pub struct TermuxDialog {
     pub confirm: TermuxConfirmDialog,
 }
 
+impl Default for TermuxDialog {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxDialog {
     pub fn new() -> Self {
         TermuxDialog {

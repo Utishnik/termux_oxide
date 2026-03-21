@@ -55,6 +55,12 @@ pub struct BatteryStatus {
 }
 
 pub struct TermuxBatteryStatus {}
+
+impl Default for TermuxBatteryStatus {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl TermuxBatteryStatus {
     pub fn new() -> Self {
         TermuxBatteryStatus {}

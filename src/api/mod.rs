@@ -42,3 +42,9 @@ impl Termux {
         }
     }
 }
+
+impl Default for Termux {
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -28,6 +28,12 @@ pub struct TermuxConfirmDialog {
     pub hint: Option<String>,
 }
 
+impl Default for TermuxConfirmDialog {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxConfirmDialog {
     pub fn new() -> Self {
         Self {

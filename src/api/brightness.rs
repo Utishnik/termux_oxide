@@ -10,6 +10,13 @@ pub enum Brightness {
 pub struct TermuxBrightness {
     level: Brightness,
 }
+
+impl Default for TermuxBrightness {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TermuxBrightness {
     pub fn new() -> Self {
         Self {
