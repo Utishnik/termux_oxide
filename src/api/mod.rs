@@ -19,6 +19,7 @@ pub mod errors;
 pub mod notification;
 pub mod run;
 pub mod toast;
+pub mod sms_list;
 
 pub struct Termux {
     pub battery: TermuxBatteryStatus,
