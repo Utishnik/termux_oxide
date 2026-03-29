@@ -127,6 +127,7 @@ pub fn de_list_json(cfg_path: String) -> Result<ContactList, ()> {
     }
 }
 
+//TODO сделать trait с async_run,async_run_timeout и тд
 impl ContactList {
     pub async fn async_run() -> Result<Self, TermuxError> {
         let mut command = smol_cmd::new("termux-contact-list");

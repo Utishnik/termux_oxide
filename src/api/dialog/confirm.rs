@@ -53,7 +53,7 @@ impl TermuxConfirmDialog {
     }
 
     pub fn run(&self) -> Result<TermuxDialogConfirmResult, TermuxError> {
-        let mut command = Command::new("termux-dialog");
+        let mut command: Command = Command::new("termux-dialog");
         command.arg("confirm");
 
         if let Some(ref title) = self.title {
