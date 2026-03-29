@@ -12,21 +12,27 @@ pub struct Download {
 }
 
 impl Download {
-    pub async fn async_run(args: &[&str]) -> Result<(), Error> {
+    pub fn convert_args_to_str(&self) -> Box<[&str]> {
+        let description: &str = &*self.description.as_str();
+        let title: &str = &*self.title.as_str();
+        let path: &str = &*self.path.as_str();
+        let ret: Box<[&str]> = Box::new([description, title, path]);
+        ret
+    }
+    pub async fn async_run(&self) -> Result<(), Error> {
+        let args: Box<[&str]> = self.convert_args_to_str();
         let command: Result<String, Error> =
-            async_run_api_cmd_with_args("termux-download", args).await;
+            async_run_api_cmd_with_args("termux-download", &*args).await;
         match command {
             Ok(_) => Ok(()),
             Err(e) => Err(e),
         }
     }
 
-    pub async fn async_run_timeout(
-        args: &[&str],
-        delay: core::time::Duration,
-    ) -> Result<(), TermuxError> {
+    pub async fn async_run_timeout(&self, delay: core::time::Duration) -> Result<(), TermuxError> {
+        let args: Box<[&str]> = self.convert_args_to_str();
         let command: TimeOutRes<Result<String, Error>> =
-            async_run_api_cmd_with_args_timeout("termux-download", args, delay).await;
+            async_run_api_cmd_with_args_timeout("termux-download", &*args, delay).await;
         match command {
             TimeOutRes::Ok(Ok(_)) => Ok(()),
             TimeOutRes::Ok(Err(e)) => Err(TermuxError::IOError(e)),
