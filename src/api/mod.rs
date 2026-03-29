@@ -14,11 +14,11 @@ pub mod camera;
 pub mod clipboard;
 pub mod contact_list;
 pub mod dialog;
+pub mod download;
 pub mod errors;
 pub mod notification;
 pub mod run;
 pub mod toast;
-pub mod download;
 
 pub struct Termux {
     pub battery: TermuxBatteryStatus,
