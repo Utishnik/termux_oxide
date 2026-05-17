@@ -1,1 +1,1 @@
-vless://68e48518-273b-4420-81be-957fe526567f@185.121.235.85:20902?encryption=none&security=reality&sni=vk.ru&fp=chrome&pbk=oPoM6zSCgbFE7sCOHmnLS62d7DA4AabdRDfo32m-JUY&sid=89&spx=%2F&type=tcp&headerType=none#Premium%20Amsterdam%204%20NL
+
